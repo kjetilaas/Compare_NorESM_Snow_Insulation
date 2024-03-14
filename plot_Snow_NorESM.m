@@ -104,12 +104,12 @@ for norESM=1:2
     x = lsqcurvefit(fun,x0,binedSD,binedAn)
     sds = linspace(0,0.5);
     %figure;plot(binedSD,binedAn,'ko',sds,fun(x,sds),'b-'); hold on;
-    plot(sds,fun(x,sds));
+%    plot(sds,fun(x,sds));
     axis([0,0.5,0,1])
 
 
     %---Randomly select 35 cases in each bin. and fit curve to those. 
-    ntot=10;
+    ntot=100;
     x_all=zeros(3,ntot);
     for nn=1:ntot;
             subsetSD=zeros(1,350); subsetAn=zeros(1,350); 
@@ -135,10 +135,11 @@ for norESM=1:2
         %plot(subsetSD,subsetAn,'.',sds,fun(x,sds),'--')
     end
     xmedian=median(x_all,2);
-    plot(sds,fun(xmedian,sds),'--')
+    plot(sds,fun(xmedian,sds),'-','LineWidth',2)
     axis([0,0.5,0,1])
 end %NorESM
 
-legend('NorESM1 all','NorESM1 subset','NorESM2 all','NorESM2 subset');
+%legend('NorESM1 all','NorESM1 subset','NorESM2 all','NorESM2 subset');
+legend('NorESM1','NorESM2');
 xlabel('Effective snow depth (m)'); ylabel('Anorm');
 saveas(gcf, 'Snow_Insulation.png');
