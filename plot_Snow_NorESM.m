@@ -139,7 +139,20 @@ for norESM=1:2
     axis([0,0.5,0,1])
 end %NorESM
 
+ obs_median = readmatrix('Obs_from_plotdigitizer.txt'); %https://plotdigitizer.com/app
+ obs_min = readmatrix('Obsmin_from_plotdigitizer.txt');
+ obs_max = readmatrix('Obsmax_from_plotdigitizer.txt');
+
+plot(obs_median(:,1)*0.01,obs_median(:,2),'k--','LineWidt',2)
+plot(obs_min(:,1)*0.01,obs_min(:,2),'-','Color', [0.5 0.5 0.5])
+plot(obs_max(:,1)*0.01,obs_max(:,2),'-','Color', [0.5 0.5 0.5])
+
+% Fill the area between y1 and y2
+fill([obs_min(:,1)*0.01; flipud(obs_max(:,1)*0.01)], [obs_min(:,2); flipud(obs_max(:,2))], [0.5 0.5 0.5], 'FaceAlpha', 0.5, 'EdgeColor', 'none');
+
+box on;
+
 %legend('NorESM1 all','NorESM1 subset','NorESM2 all','NorESM2 subset');
-legend('NorESM1','NorESM2');
+legend('NorESM1','NorESM2','Obs (S17)');
 xlabel('Effective snow depth (m)'); ylabel('Anorm');
-saveas(gcf, 'Snow_Insulation.png');
+saveas(gcf, 'Snow_Insulation_wObs.png');
